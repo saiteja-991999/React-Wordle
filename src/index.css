@@ -1,0 +1,162 @@
+/* Reset and base layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Verdana', sans-serif;
+  background: #f8f8f8;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+/* Full app wrapper */
+.wordle-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Grid container fills available vertical space above keypad */
+.grid-container {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* A single row of tiles */
+.row.dynamic {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 90vw;
+  margin-bottom: 8px;
+}
+
+/* Tile block */
+.tile {
+  aspect-ratio: 1;
+  background: #fff;
+  border: 2px solid #bbb;
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.tile.filled {
+  border-color: #333;
+  animation: bounce 0.2s ease-in-out forwards;
+}
+
+/* Colors */
+.tile.green {
+  background-color: #5ac85a;
+  border-color: #5ac85a;
+  color: white;
+  animation: flip 0.5s ease forwards;
+}
+.tile.yellow {
+  background-color: #e2cc68;
+  border-color: #e2cc68;
+  color: white;
+  animation: flip 0.5s ease forwards;
+}
+.tile.grey {
+  background-color: #a1a1a1;
+  border-color: #a1a1a1;
+  color: white;
+  animation: flip 0.5s ease forwards;
+}
+
+
+
+/* Keypad */
+.keypad-container {
+  position: fixed;
+  width:100%;
+  bottom: 0;
+  background: #eee;
+  border-top: 2px solid #ccc;
+  padding: 8px 10px;
+}
+
+.keypad-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+/* Individual key */
+.key {
+  background: #ddd;
+  flex: 1;
+  max-width: 10%;
+  height: 48px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 48px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.key.green { background-color: #5ac85a; color: white; }
+.key.yellow { background-color: #e2cc68; color: white; }
+.key.grey { background-color: #a1a1a1; color: white; }
+
+/* Special keys */
+.key.enter,
+.key.backspace {
+  flex: 1.5;
+  max-width: 20%;
+}
+
+/* Optional: use icons for backspace */
+@media (max-width: 600px) {
+  .key.backspace::before {
+    content: '⌫';
+    font-size: 1.2rem;
+  }
+
+  .key.enter::before {
+    content: '⏎';
+    font-size: 1.2rem;
+  }
+
+  .key.backspace,
+  .key.enter {
+    font-size: 0;
+  }
+}
+
+/* Animations */
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+    background: #fff;
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
